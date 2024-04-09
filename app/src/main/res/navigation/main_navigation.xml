@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.hobbyapp_utsanmp.view.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/actionRegister"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/actionHobbyList"
+            app:destination="@id/hobbyListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.hobbyapp_utsanmp.view.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/actionLogin"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/hobbyListFragment"
+        android:name="com.example.hobbyapp_utsanmp.view.HobbyListFragment"
+        android:label="Hobby App"
+        tools:layout="@layout/fragment_hobby_list">
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+</navigation>
