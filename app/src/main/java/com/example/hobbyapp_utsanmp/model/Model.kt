@@ -3,7 +3,6 @@ package com.example.hobbyapp_utsanmp.model
 import com.google.gson.annotations.SerializedName
 
 data class Account(
-    val idaccount: Int?,
     var nama_depan: String?,
     var nama_belakang: String?,
     var username: String?,
