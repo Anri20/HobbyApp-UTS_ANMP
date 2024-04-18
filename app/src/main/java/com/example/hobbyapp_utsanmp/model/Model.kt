@@ -20,5 +20,5 @@ data class Hobby(
     val title: String?,
     val writer: String?,
     val preview: String?,
-    val content: Array<String>?,
+    val content: String,
 )
