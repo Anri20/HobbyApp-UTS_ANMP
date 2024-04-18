@@ -2,6 +2,7 @@ package com.example.hobbyapp_utsanmp.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.android.volley.Request
@@ -14,20 +15,19 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.nio.charset.Charset
 
-class RegisterViewModel(application: Application) : AndroidViewModel(application) {
-    val accountLDCompare = MutableLiveData<ArrayList<Account>>()
-    val accountLoadErrorLD = MutableLiveData<Boolean>()
-    val LoadingLD = MutableLiveData<Boolean>()
+class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+    val profileLD = MutableLiveData<ArrayList<Account>>()
+    val profileLoadErrorLD = MutableLiveData<Boolean>()
+    val message = MutableLiveData<String>()
 
     val TAG = "volleyTag"
     private var queue: RequestQueue? = null
 
-    fun compare(username: String) {
-        accountLoadErrorLD.value = false
-        LoadingLD.value = true
+    fun getProfile(id: String) {
+        profileLoadErrorLD.value = false
 
         queue = Volley.newRequestQueue(getApplication())
-        val query = "select * from account where username = '$username'"
+        val query = "select * from account where idaccount = $id"
         val url = "http://10.0.2.2/API/UTS ANMP/get_data.php?table=account&query=$query"
 
         val stringRequest = StringRequest(
@@ -35,16 +35,14 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             {
                 val sType = object : TypeToken<ArrayList<Account>>() {}.type
                 val result = Gson().fromJson<ArrayList<Account>>(it, sType)
-                accountLDCompare.value = result
+                profileLD.value = result
 //                if success, set loading progress live data to false
-                LoadingLD.value = false
                 Log.d("showvolley", result.toString())
             },
             {
 //                if failed, show error message, set error live data to true and progress live data to false
                 Log.d("showvolley", it.toString())
-                accountLoadErrorLD.value = true
-                LoadingLD.value = false
+                profileLoadErrorLD.value = true
             }
         ).apply {
 //            this.tag = TAG
@@ -53,27 +51,23 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun register(
+    fun updateProfile(
+        id: String,
         nama_depan: String,
         nama_belakang: String,
         username: String,
         password: String,
-        imgUrl: String?
+        imgUrl: String
     ) {
-        // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(getApplication())
-        val url = "http://10.0.2.2/API/UTS%20ANMP/insert_data_account.php"
+        val url = "http://10.0.2.2/API/UTS%20ANMP/update_data_account.php"
 
-        // Create the data object
-        val user = Account(0, nama_depan, nama_belakang, username, password, imgUrl)
-        // Convert User object to JSON using Gson
-        val gson = Gson()
-        val userJson = gson.toJson(user)
+        val updatedData = Account(id.toInt(), nama_depan, nama_belakang, username, password, imgUrl)
 
-        // Create a StringRequest
-        val stringRequest = object : StringRequest(
-            Request.Method.POST, url,
-            Response.Listener<String> { response ->
+        val jsonBody = Gson().toJson(updatedData)
+
+        val request = object : StringRequest(Method.PUT, url,
+            Response.Listener { response ->
                 Log.d("showvolley", response)
             },
             Response.ErrorListener { error ->
@@ -84,11 +78,10 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             }
 
             override fun getBody(): ByteArray {
-                return userJson.toByteArray(Charset.defaultCharset())
+                return jsonBody.toByteArray(Charset.defaultCharset())
             }
         }
 
-        // Add the request to the RequestQueue
-        queue.add(stringRequest)
+        queue.add(request)
     }
 }

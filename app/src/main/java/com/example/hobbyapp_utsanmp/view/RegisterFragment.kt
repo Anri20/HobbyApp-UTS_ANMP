@@ -85,7 +85,7 @@ class RegisterFragment : Fragment() {
                     }
                 }
 
-// Start the timer
+                // Start the timer
                 countDownTimer.start()
 
             } else {

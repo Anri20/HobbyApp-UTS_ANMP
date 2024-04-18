@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.hobbyapp_utsanmp.databinding.FragmentLoginBinding
+import com.example.hobbyapp_utsanmp.util.GlobalData
 import com.example.hobbyapp_utsanmp.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
@@ -21,6 +22,8 @@ class LoginFragment : Fragment() {
     private var bottomNavigationVisibilityListener: BottomNavigationVisibilityListener? = null
 
     private lateinit var loginViewModel: LoginViewModel
+
+    private var onDataPassListener: OnDataPassListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +60,10 @@ class LoginFragment : Fragment() {
             if (it.size != 0) {
                 Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
 
+                GlobalData.account = it[0]
+
                 val action =
-                    LoginFragmentDirections.actionHobbyList(binding.txtUsername.text.toString())
+                    LoginFragmentDirections.actionHobbyList(it[0].idaccount.toString().toInt(), it[0].username.toString())
                 Navigation.findNavController(requireView()).navigate(action)
             } else {
                 Toast.makeText(
@@ -81,6 +86,12 @@ class LoginFragment : Fragment() {
             bottomNavigationVisibilityListener = context
         } else {
             throw RuntimeException("$context must implement BottomNavigationVisibilityListener")
+        }
+
+        if (context is OnDataPassListener) {
+            onDataPassListener = context
+        } else {
+            throw RuntimeException("$context must implement OnDataPassListener")
         }
     }
 
