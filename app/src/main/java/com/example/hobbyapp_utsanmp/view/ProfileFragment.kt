@@ -80,4 +80,9 @@ class ProfileFragment : Fragment() {
             binding.txtProfileNamaBelakang.setText(it[0].nama_belakang)
         })
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

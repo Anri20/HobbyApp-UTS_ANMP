@@ -72,6 +72,11 @@ class HobbyListFragment : Fragment() {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is BottomNavigationVisibilityListener) {

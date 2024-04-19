@@ -28,12 +28,6 @@
         <action
             android:id="@+id/actionAddHobby"
             app:destination="@id/addHobbyFragment" />
-        <argument
-            android:name="idaccount"
-            app:argType="integer" />
-        <argument
-            android:name="username"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/itemHistory"
@@ -57,7 +51,20 @@
         android:id="@+id/hobbyDetailFragment"
         android:name="com.example.hobbyapp_utsanmp.view.HobbyDetailFragment"
         android:label="HobbyApp"
-        tools:layout="@layout/fragment_hobby_detail" />
+        tools:layout="@layout/fragment_hobby_detail" >
+        <argument
+            android:name="imgUrl"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="writer"
+            app:argType="string" />
+        <argument
+            android:name="content"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/addHobbyFragment"
         android:name="com.example.hobbyapp_utsanmp.view.AddHobbyFragment"

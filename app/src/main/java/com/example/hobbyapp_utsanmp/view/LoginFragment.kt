@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
                 GlobalData.account = it[0]
 
                 val action =
-                    LoginFragmentDirections.actionHobbyList(it[0].idaccount.toString().toInt(), it[0].username.toString())
+                    LoginFragmentDirections.actionHobbyList()
                 Navigation.findNavController(requireView()).navigate(action)
             } else {
                 Toast.makeText(
