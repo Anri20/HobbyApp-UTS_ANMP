@@ -15,10 +15,10 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="32dp"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_account_circle_24"
             tools:src="@drawable/baseline_account_circle_24" />
 
         <ImageView
@@ -26,10 +26,19 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="32dp"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtProfileUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/defaultPict" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtInputProfilePassword"
@@ -102,15 +111,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/txtProfileUsername"
+        <Button
+            android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Username"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/defaultPict" />
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="96dp"
+            android:text="Logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

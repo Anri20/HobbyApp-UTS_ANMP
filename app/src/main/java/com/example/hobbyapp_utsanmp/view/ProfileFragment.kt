@@ -15,6 +15,7 @@ import com.example.hobbyapp_utsanmp.databinding.FragmentLoginBinding
 import com.example.hobbyapp_utsanmp.databinding.FragmentProfileBinding
 import com.example.hobbyapp_utsanmp.model.Account
 import com.example.hobbyapp_utsanmp.util.GlobalData
+import com.example.hobbyapp_utsanmp.util.loadImage
 import com.example.hobbyapp_utsanmp.viewmodel.ProfileViewModel
 import java.io.ByteArrayInputStream
 import java.io.ObjectInputStream
@@ -69,11 +70,25 @@ class ProfileFragment : Fragment() {
 
             Toast.makeText(context, "Profile updated successfully", Toast.LENGTH_SHORT).show()
         }
+
+        binding.btnLogout.setOnClickListener {
+            val action = ProfileFragmentDirections.actionLogout()
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     private fun observeViewModel() {
         profileViewModel.profileLD.observe(viewLifecycleOwner, Observer {
             Log.d("showObserveVM", it.toString())
+            Log.d("imgURL", (it[0].imgUrl.toString() == "null").toString())
+            if (it[0].imgUrl != "null"){
+                binding.ProfilePict.loadImage(it[0].imgUrl)
+                binding.ProfilePict.visibility = View.VISIBLE
+                binding.defaultPict.visibility = View.INVISIBLE
+            } else{
+                binding.ProfilePict.visibility = View.INVISIBLE
+                binding.defaultPict.visibility = View.VISIBLE
+            }
             binding.txtProfileUsername.text = it[0].username.toString()
             binding.txtProfilePassword.setText(it[0].password)
             binding.txtProfileNamaDepan.setText(it[0].nama_depan)

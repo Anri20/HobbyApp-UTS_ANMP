@@ -4,4 +4,5 @@ import com.example.hobbyapp_utsanmp.model.Account
 
 object GlobalData {
     lateinit var account: Account
+    var isLogin: Boolean = false
 }

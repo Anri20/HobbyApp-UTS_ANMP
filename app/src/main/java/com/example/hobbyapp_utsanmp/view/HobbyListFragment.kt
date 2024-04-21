@@ -46,6 +46,7 @@ class HobbyListFragment : Fragment() {
 
         binding.refreshLayout.setOnRefreshListener {
             binding.progressLoad.visibility = View.VISIBLE
+            hobbyViewModel.getHobby()
         }
 
         binding.fabAddHobby.setOnClickListener{
